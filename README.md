@@ -125,32 +125,6 @@ npm start
 - Location and price information
 - Registration and ownership details
 
-## Customization
-
-### Changing Car Data
-Edit the `carDetails` object in `pages/index.tsx`:
-
-```typescript
-const carDetails = {
-  name: 'Your Car Name',
-  year: 2024,
-  price: 1500000,
-  // ... other details
-};
-```
-
-### Changing Images
-Replace the image URLs in the `carImages` and `images360` arrays in `pages/index.tsx`.
-
-### Adjusting EMI Calculator Parameters
-Modify the min/max values in `components/EMICalculator.tsx`:
-
-```typescript
-const minLoanAmount = 100000;
-const maxLoanAmount = 1326000;
-const rateOfInterest = 9.5; // percentage
-```
-
 ## Design Decisions
 
 1. **Next.js over Create React App:** Better performance, SSR capabilities, and routing
@@ -173,31 +147,3 @@ const rateOfInterest = 9.5; // percentage
 - Safari (latest)
 - Edge (latest)
 
-## Future Enhancements
-
-- Add more car images for smoother 360° rotation (36 frames recommended)
-- Implement loan breakup modal
-- Add image zoom functionality
-- Integrate with backend API
-- Add booking/inquiry form
-- Implement image lazy loading
-- Add SEO optimization
-
-## Assignment Checklist
-
-- ✅ Picture Scroll with image carousel
-- ✅ 360° View Button with interactive functionality
-- ✅ Price Calculator (EMI Calculator) with form-based inputs
-- ✅ Car Overview Section with model, year, mileage, and price
-- ✅ Built with Next.js (React.js)
-- ✅ Modern UI matching Spinny's design aesthetic
-- ✅ Fully responsive design
-- ✅ Clean, maintainable code with TypeScript
-
-## Contact
-
-For any questions regarding this assignment, please reach out.
-
----
-
-**Note:** This project uses placeholder images from Unsplash. Replace with actual car images for production use.
