@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import SpinnyPricingSidebar from '@/components/SpinnyPricingSidebar';
+import OmegaPricingSidebar from '@/components/OmegaPricingSidebar';
 import CarOverview from '@/components/CarOverview';
 import QualityReport from '@/components/QualityReport';
 import CarSpecifications from '@/components/CarSpecifications';
@@ -243,7 +243,7 @@ export default function SpinnyCarDetails() {
 
           {/* RIGHT COLUMN (30%) - Sticky Pricing Sidebar */}
           <div className="lg:col-span-3">
-            <SpinnyPricingSidebar
+            <OmegaPricingSidebar
               carName={carDetails.name}
               kmsDriven={carDetails.kmsDriven}
               fuelType={carDetails.fuelType}

@@ -5,12 +5,12 @@
 @tailwind utilities;
 
 :root {
-  --spinny-purple: #5C2BC9;
-  --spinny-bg: #F7F7F7;
-  --spinny-card-bg: #FFFFFF;
-  --spinny-text-primary: #1A1A1A;
-  --spinny-text-secondary: #666666;
-  --spinny-border: #E5E5E5;
+  --omega-purple: #5C2BC9;
+  --omega-bg: #F7F7F7;
+  --omega-card-bg: #FFFFFF;
+  --omega-text-primary: #1A1A1A;
+  --omega-text-secondary: #666666;
+  --omega-border: #E5E5E5;
 }
 
 * {
@@ -21,8 +21,8 @@
 
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  background-color: var(--spinny-bg);
-  color: var(--spinny-text-primary);
+  background-color: var(--omega-bg);
+  color: var(--omega-text-primary);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

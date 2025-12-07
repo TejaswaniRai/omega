@@ -2,7 +2,7 @@ import React from 'react';
 import { MapPin, Shield } from 'lucide-react';
 import EventPriceCalculator from './EventPriceCalculator';
 
-interface SpinnyPricingSidebarProps {
+interface OmegaPricingSidebarProps {
   carName: string;
   kmsDriven: number;
   fuelType: string;
@@ -12,7 +12,7 @@ interface SpinnyPricingSidebarProps {
   onCalculateEMI: () => void;
 }
 
-const SpinnyPricingSidebar: React.FC<SpinnyPricingSidebarProps> = ({
+const OmegaPricingSidebar: React.FC<OmegaPricingSidebarProps> = ({
   carName,
   kmsDriven,
   fuelType,
@@ -139,4 +139,4 @@ const SpinnyPricingSidebar: React.FC<SpinnyPricingSidebarProps> = ({
   );
 };
 
-export default SpinnyPricingSidebar;
+export default OmegaPricingSidebar;

@@ -1,6 +1,6 @@
-# Spinny Car Details Page - Front-End Internship Assignment
+# Omega Car Details Page - Front-End Internship Assignment
 
-This is a Next.js application built for the Front-End Internship assignment, featuring a car details page inspired by Spinny's website.
+This is a Next.js application built for the Front-End Internship assignment, featuring a car details page inspired by Omega's website.
 
 ## Features Implemented
 

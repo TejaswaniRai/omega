@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import SpinnyPricingSidebar from '@/components/SpinnyPricingSidebar';
+import OmegaPricingSidebar from '@/components/OmegaPricingSidebar';
 import CarOverview from '@/components/CarOverview';
 import QualityReport from '@/components/QualityReport';
 import CarSpecifications from '@/components/CarSpecifications';
@@ -54,16 +54,16 @@ export default function Home() {
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: '#F7F7F7' }}>
-      {/* Spinny Header */}
+      {/* Omega Header */}
       <header className="bg-white border-b border-[#E5E5E5] sticky top-0 z-50">
         <div className="max-w-[1440px] mx-auto px-8 py-4">
           <div className="flex items-center justify-between gap-6">
             {/* Logo */}
             <div className="flex items-center gap-2">
               <div className="w-10 h-10 bg-[#5C2BC9] rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-xl">S</span>
+                <span className="text-white font-bold text-xl">Ω</span>
               </div>
-              <span className="text-[24px] font-bold text-[#1A1A1A]">Spinny</span>
+              <span className="text-[24px] font-bold text-[#1A1A1A]">Omega</span>
             </div>
 
             {/* Select City + Search */}
@@ -338,7 +338,7 @@ export default function Home() {
 
           {/* RIGHT COLUMN (30%) - Sticky Pricing Sidebar */}
           <div className="lg:col-span-3">
-            <SpinnyPricingSidebar
+            <OmegaPricingSidebar
               carName={carDetails.name}
               kmsDriven={carDetails.kmsDriven}
               fuelType={carDetails.fuelType}
@@ -372,14 +372,14 @@ export default function Home() {
             </div>
 
             <div className="border-b border-[#E5E5E5] pb-6">
-              <h3 className="text-[16px] font-bold text-[#1A1A1A] mb-3">Q. Will Spinny help me with car finance?</h3>
+              <h3 className="text-[16px] font-bold text-[#1A1A1A] mb-3">Q. Will Omega help me with car finance?</h3>
               <p className="text-[14px] text-[#666666] leading-relaxed">
                 Yes, we have partnerships with leading banks and NBFCs to help you get the best car loan deals with competitive interest rates.
               </p>
             </div>
 
             <div className="border-b border-[#E5E5E5] pb-6">
-              <h3 className="text-[16px] font-bold text-[#1A1A1A] mb-3">Q. How does Spinny's money back guarantee work?</h3>
+              <h3 className="text-[16px] font-bold text-[#1A1A1A] mb-3">Q. How does Omega's money back guarantee work?</h3>
               <p className="text-[14px] text-[#666666] leading-relaxed">
                 We offer a no-questions-asked 5-day money back guarantee. If you're not satisfied with your purchase, you can return the car within 5 days for a full refund.
               </p>
@@ -476,10 +476,10 @@ export default function Home() {
             </p>
           </div>
 
-          {/* About Spinny */}
+          {/* About Omega */}
           <div className="border-t border-[#333333] pt-8 mb-8">
             <p className="text-[13px] text-[#CCCCCC] leading-relaxed mb-4">
-              Spinny is the most trusted way of buying and selling used cars. Choose from over 10K fully inspected second-hand car models. Select online and book a test drive at your home or at a Spinny Car Hub near you. Get a no-questions-asked* 5-day money back guarantee and a free one-year comprehensive service warranty with Assured Resale Value on every Spinny car.
+              Omega is the most trusted way of buying and selling used cars. Choose from over 10K fully inspected second-hand car models. Select online and book a test drive at your home or at an Omega Car Hub near you. Get a no-questions-asked* 5-day money back guarantee and a free one-year comprehensive service warranty with Assured Resale Value on every Omega car.
             </p>
             <p className="text-[11px] text-[#999999]">(∗)subject to certain terms and conditions.</p>
           </div>
