@@ -1,0 +1,4 @@
+Place your 360 degree car images here with sequential naming:
+- thar-360-01.jpg
+- thar-360-02.jpg
+- etc.

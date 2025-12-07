@@ -1,0 +1,746 @@
+'use client';
+
+import React, { useState } from 'react';
+import ImageCarousel from '@/components/ImageCarousel';
+import View360Modal from '@/components/View360Modal';
+import CarOverview from '@/components/CarOverview';
+import EMICalculator from '@/components/EMICalculator';
+import EventPriceCalculator from '@/components/EventPriceCalculator';
+import QualityReport from '@/components/QualityReport';
+import CarSpecifications from '@/components/CarSpecifications';
+
+export default function Home() {
+  const [is360Open, setIs360Open] = useState(false);
+  const [isEMICalculatorOpen, setIsEMICalculatorOpen] = useState(false);
+
+  // Main carousel images - Your actual Mahindra Thar images
+  const carImages = [
+    '/images/360/thar-360-01.jpg',
+    '/images/360/thar-360-03.jpg',
+    '/images/360/thar-360-05.jpg',
+    '/images/360/thar-360-07.jpg',
+  ];
+
+  // 360 degree exterior images - Complete rotation with all 8 angles
+  const images360Exterior = [
+    '/images/360/thar-360-01.jpg', // 0° - Front-Left angle
+    '/images/360/thar-360-02.jpg', // 45° - Left side
+    '/images/360/thar-360-03.jpg', // 90° - Back-Left angle
+    '/images/360/thar-360-04.jpg', // 135° - Back view
+    '/images/360/thar-360-05.jpg', // 180° - Back-Right angle
+    '/images/360/thar-360-06.jpg', // 225° - Right side
+    '/images/360/thar-360-07.jpg', // 270° - Front-Right angle
+    '/images/360/thar-360-08.jpg', // 315° - Front view
+  ];
+
+  const carDetails = {
+    name: '2021 Mahindra Thar LX 4 STR Hard Top Diesel MT 4WD',
+    model: 'Thar LX',
+    year: 2021,
+    price: 1326000,
+    mileage: '15.2 kmpl',
+    location: 'Sector 29, Gurgaon',
+    fuelType: 'Diesel',
+    transmission: 'Manual',
+    kmsDriven: 28500,
+    features: [
+      'Power Steering',
+      'Power Windows',
+      'Air Conditioner',
+      'Anti-Lock Braking System (ABS)',
+      'Alloy Wheels',
+      'Multi-function Steering Wheel',
+      'Bluetooth Connectivity',
+      '4WD Drive Type',
+    ],
+    specifications: [
+      { label: 'Registration Year', value: '2021' },
+      { label: 'Insurance Type', value: 'Comprehensive' },
+      { label: 'Fuel Type', value: 'Diesel' },
+      { label: 'Seats', value: '4 Seater' },
+      { label: 'KMs Driven', value: '28,500 km' },
+      { label: 'RTO', value: 'HR26' },
+      { label: 'Ownership', value: '1st Owner' },
+      { label: 'Engine Displacement', value: '2184 cc' },
+      { label: 'Transmission', value: 'Manual' },
+      { label: 'Year of Manufacture', value: '2021' },
+      { label: 'Color', value: 'Red Rage' },
+      { label: 'Body Type', value: 'SUV' },
+    ],
+  };
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+      {/* Header */}
+      <header className="bg-white shadow-sm sticky top-0 z-40">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+          <div className="flex items-center justify-between gap-4">
+            {/* Logo */}
+            <div className="flex items-center gap-4">
+              <h1 className="text-2xl md:text-3xl font-bold text-primary flex items-center">
+                <span className="bg-primary text-white w-10 h-10 rounded-lg flex items-center justify-center mr-2 text-xl">S</span>
+                Spinny
+              </h1>
+            </div>
+
+            {/* City Selector & Search */}
+            <div className="hidden lg:flex items-center gap-4 flex-1 max-w-2xl">
+              <select className="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-primary">
+                <option>Select city</option>
+                <option>Gurgaon</option>
+                <option>Delhi</option>
+                <option>Mumbai</option>
+                <option>Bangalore</option>
+                <option>Pune</option>
+              </select>
+              
+              <div className="flex-1 relative">
+                <input
+                  type="text"
+                  placeholder="Search by km driven"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-primary"
+                />
+                <button className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-primary">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            {/* Navigation Menu */}
+            <nav className="hidden md:flex items-center gap-6">
+              <a href="#" className="text-gray-700 hover:text-primary transition-colors font-medium">
+                Buy car
+              </a>
+              <a href="#" className="text-gray-700 hover:text-primary transition-colors font-medium">
+                Sell car
+              </a>
+              <a href="#" className="text-gray-700 hover:text-primary transition-colors font-medium">
+                More
+              </a>
+            </nav>
+
+            {/* Right Side Actions */}
+            <div className="flex items-center gap-4">
+              {/* Shortlisted */}
+              <button className="flex flex-col items-center text-gray-700 hover:text-primary transition-colors">
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                </svg>
+                <span className="text-xs">Shortlisted</span>
+              </button>
+
+              {/* Account */}
+              <button className="flex flex-col items-center text-gray-700 hover:text-primary transition-colors">
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+                <span className="text-xs">Account</span>
+              </button>
+
+              {/* Call us */}
+              <div className="hidden lg:flex flex-col items-end">
+                <span className="text-xs text-gray-600">Call us at</span>
+                <a href="tel:727-727-7275" className="text-primary font-bold text-lg hover:underline">
+                  727-727-7275
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      {/* Main Content */}
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        {/* Breadcrumb */}
+        <div className="text-sm text-gray-600 mb-6 flex items-center gap-2">
+          <a href="#" className="hover:text-primary cursor-pointer font-semibold text-primary">HOME</a>
+          <span className="text-gray-400">›</span>
+          <a href="#" className="hover:text-primary cursor-pointer text-primary font-semibold">USED CARS IN GURGAON</a>
+          <span className="text-gray-400">›</span>
+          <a href="#" className="hover:text-primary cursor-pointer text-primary font-semibold">MAHINDRA CARS</a>
+          <span className="text-gray-400">›</span>
+          <span className="text-gray-500">USED 2021 MAHINDRA THAR CARS</span>
+        </div>
+
+        {/* Main Layout - Scrollable Left, Fixed Right Sidebar */}
+        <div className="grid lg:grid-cols-[1fr_400px] gap-8 mb-8">
+        {/* Main Layout - Scrollable Left, Fixed Right Sidebar */}
+        <div className="grid lg:grid-cols-[1fr_400px] gap-8 mb-8">
+          {/* Left Side - Image and Tabs Content */}
+          <div className="space-y-6">
+            {/* Image Carousel */}
+            <div className="relative">
+              <div className="absolute top-4 left-4 z-10 bg-gray-200 text-gray-700 px-4 py-2 rounded font-semibold">
+                SOLD OUT
+              </div>
+              <ImageCarousel images={carImages} onView360Click={() => setIs360Open(true)} />
+            </div>
+
+            {/* Reasons to Buy - Below Image */}
+            <div className="grid md:grid-cols-2 gap-4">
+              <div className="bg-white rounded-lg p-4 border border-gray-200">
+                <div className="flex items-start gap-3">
+                  <div className="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0">
+                    <svg className="w-5 h-5 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-gray-900 mb-1 text-sm">Assured+ with 3-year warranty</h3>
+                    <p className="text-xs text-gray-600">India's first</p>
+                    <p className="text-xs text-gray-500">As good as new, with extra benefits</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="bg-white rounded-lg p-4 border border-gray-200">
+                <div className="flex items-start gap-3">
+                  <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+                    <svg className="w-5 h-5 text-secondary" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-gray-900 mb-1 text-sm">Premium variant</h3>
+                    <p className="text-xs text-gray-500">Fully loaded variant offering the best of features</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Car Details Tabs Section */}
+            <div className="bg-white rounded-lg shadow-sm">
+              {/* Tabs */}
+              <div className="border-b border-gray-200">
+                <div className="flex gap-12 px-6">
+                  <button className="py-4 border-b-2 border-primary text-primary font-medium uppercase text-sm">
+                    Overview
+                  </button>
+                  <button className="py-4 text-gray-500 hover:text-gray-900 font-medium uppercase text-sm">
+                    Report
+                  </button>
+                  <button className="py-4 text-gray-500 hover:text-gray-900 font-medium uppercase text-sm">
+                    Feature & Specs
+                  </button>
+                </div>
+              </div>
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-gray-900 mb-1 text-sm">Premium variant</h3>
+                    <p className="text-xs text-gray-500">Fully loaded variant offering the best of features</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+              </div>
+            </div>
+
+            {/* Car Overview Content */}
+            <div className="p-8">
+              <h2 className="text-2xl font-bold text-purple-900 mb-8">Car Overview</h2>
+            
+            <div className="grid md:grid-cols-2 gap-x-16 gap-y-6">
+              <div className="flex justify-between py-2">
+                <span className="text-gray-600">Make Year</span>
+                <span className="font-semibold text-gray-900">Aug 2021</span>
+              </div>
+              <div className="flex justify-between py-2">
+                <span className="text-gray-600">Registration Year</span>
+                <span className="font-semibold text-gray-900">Dec 2021</span>
+              </div>
+              <div className="flex justify-between py-2">
+                <span className="text-gray-600">Fuel Type</span>
+                <span className="font-semibold text-gray-900">diesel (BSVI)</span>
+              </div>
+              <div className="flex justify-between py-2">
+                <span className="text-gray-600">Km driven</span>
+                <span className="font-semibold text-gray-900">13K km</span>
+              </div>
+              <div className="flex justify-between py-2">
+                <span className="text-gray-600">Transmission</span>
+                <span className="font-semibold text-gray-900">manual (regular)</span>
+              </div>
+              <div className="flex justify-between py-2">
+                <span className="text-gray-600">No. of Owner</span>
+                <span className="font-semibold text-gray-900">1st Owner</span>
+              </div>
+              <div className="flex justify-between py-2">
+                <span className="text-gray-600">Insurance Validity</span>
+                <span className="font-semibold text-gray-900">Nov 2025</span>
+              </div>
+              <div className="flex justify-between py-2">
+                <span className="text-gray-600">Insurance Type</span>
+                <span className="font-semibold text-gray-900">Third Party</span>
+              </div>
+              <div className="flex justify-between py-2">
+                <span className="text-gray-600">RTO</span>
+                <span className="font-semibold text-gray-900">DL3C</span>
+              </div>
+              <div className="flex justify-between py-2">
+                <span className="text-gray-600">Car Location</span>
+                <span className="font-semibold text-gray-900">Sector-29, Gurgaon</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Quality Report Section */}
+        <div className="bg-white rounded-lg shadow-sm mb-8">
+          {/* Tabs */}
+          <div className="border-b border-gray-200">
+            <div className="flex gap-12 px-6">
+              <button className="py-4 text-gray-500 hover:text-gray-900 font-medium uppercase text-sm">
+                Overview
+              </button>
+              <button className="py-4 border-b-2 border-primary text-primary font-medium uppercase text-sm">
+                Report
+              </button>
+              <button className="py-4 text-gray-500 hover:text-gray-900 font-medium uppercase text-sm">
+                Feature & Specs
+              </button>
+            </div>
+          </div>
+
+          {/* Quality Report Content */}
+          <div className="p-8">
+            <h2 className="text-2xl font-bold text-purple-900 mb-8">Quality report</h2>
+            
+            {/* Car Condition Section */}
+            <div className="mb-10">
+              <div className="flex items-start gap-2 mb-4">
+                <svg className="w-6 h-6 text-purple-900 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                </svg>
+                <div className="flex-1">
+                  <h3 className="text-lg font-semibold text-purple-900 flex items-center gap-2">
+                    Car condition
+                    <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </h3>
+                  <p className="text-sm text-gray-600 mt-1">Based on 200 points inspection</p>
+                  
+                  <div className="flex flex-wrap gap-2 mt-4">
+                    <span className="px-4 py-2 bg-teal-100 text-teal-800 rounded-full text-sm flex items-center gap-2">
+                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                      </svg>
+                      Core structure intact
+                    </span>
+                    <span className="px-4 py-2 bg-teal-100 text-teal-800 rounded-full text-sm flex items-center gap-2">
+                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                      </svg>
+                      Non-tampered odometer
+                    </span>
+                    <span className="px-4 py-2 bg-teal-100 text-teal-800 rounded-full text-sm flex items-center gap-2">
+                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                      </svg>
+                      Non flooded
+                    </span>
+                    <span className="px-4 py-2 bg-teal-100 text-teal-800 rounded-full text-sm flex items-center gap-2">
+                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                      </svg>
+                      Engine
+                    </span>
+                    <span className="px-4 py-2 bg-teal-100 text-teal-800 rounded-full text-sm flex items-center gap-2">
+                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                      </svg>
+                      Drivetrain
+                    </span>
+                    <span className="px-4 py-2 bg-teal-100 text-teal-800 rounded-full text-sm flex items-center gap-2">
+                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                      </svg>
+                      Body structure
+                    </span>
+                    <span className="px-4 py-2 bg-teal-100 text-teal-800 rounded-full text-sm flex items-center gap-2">
+                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                      </svg>
+                      Mechanical
+                    </span>
+                    <span className="px-4 py-2 bg-teal-100 text-teal-800 rounded-full text-sm flex items-center gap-2">
+                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                      </svg>
+                      Interior
+                    </span>
+                    <span className="px-4 py-2 bg-gray-200 text-gray-700 rounded-full text-sm">
+                      Minor dent
+                    </span>
+                    <span className="px-4 py-2 bg-gray-200 text-gray-700 rounded-full text-sm">
+                      Minor scratches
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Fixes Done Section */}
+            <div className="mb-10">
+              <div className="flex items-start gap-2 mb-4">
+                <svg className="w-6 h-6 text-purple-900 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+                </svg>
+                <div className="flex-1">
+                  <h3 className="text-lg font-semibold text-purple-900 flex items-center gap-2">
+                    Fixes done
+                    <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </h3>
+                  <p className="text-sm text-gray-600 mt-1">Quality-driven fixes and upgrades</p>
+                  
+                  <div className="mt-4">
+                    <span className="inline-flex items-center gap-3 px-4 py-2 bg-teal-100 text-teal-800 rounded-full text-sm">
+                      Repaired & repainted
+                      <span className="bg-white rounded-full w-6 h-6 flex items-center justify-center font-semibold text-gray-900">4</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Tyre Life Section */}
+            <div className="mb-8">
+              <div className="flex items-start gap-2 mb-4">
+                <svg className="w-6 h-6 text-purple-900 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <circle cx="12" cy="12" r="10" strokeWidth="2"/>
+                  <circle cx="12" cy="12" r="6" strokeWidth="2"/>
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 2v4m0 12v4M2 12h4m12 0h4" />
+                </svg>
+                <div className="flex-1">
+                  <h3 className="text-lg font-semibold text-purple-900 flex items-center gap-2 mb-4">
+                    Tyre life remaining
+                    <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </h3>
+
+                  <div className="flex gap-12 mb-6">
+                    <div>
+                      <p className="text-sm font-semibold text-gray-700 mb-2">Front</p>
+                      <p className="text-sm text-gray-900">L-90%  R-90%</p>
+                    </div>
+                    
+                    <div>
+                      <p className="text-sm font-semibold text-gray-700 mb-2">Rear</p>
+                      <p className="text-sm text-gray-900">L-90%  R-90%</p>
+                    </div>
+
+                    <div>
+                      <p className="text-sm font-semibold text-gray-700 mb-2">Spare</p>
+                      <p className="text-sm text-gray-900">95%</p>
+                    </div>
+                  </div>
+
+                  <div className="text-teal-700 text-sm font-medium">
+                    No immediate servicing required<br/>
+                    <span className="text-gray-600">(Inquire at test drive for more details)</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <button className="w-full max-w-xs bg-primary text-white py-3 px-6 rounded-lg font-semibold hover:bg-purple-800 transition-colors">
+              View full report
+            </button>
+          </div>
+        </div>
+
+        {/* Car Specifications - Feature & Specs Tab */}
+        <div className="bg-white rounded-lg shadow-sm mb-8">
+          <div className="border-b border-gray-200">
+            <div className="flex gap-12 px-6">
+              <button className="py-4 text-gray-500 hover:text-gray-900 font-medium uppercase text-sm">
+                Overview
+              </button>
+              <button className="py-4 text-gray-500 hover:text-gray-900 font-medium uppercase text-sm">
+                Report
+              </button>
+              <button className="py-4 border-b-2 border-primary text-primary font-medium uppercase text-sm">
+                Feature & Specs
+              </button>
+            </div>
+          </div>
+
+          <div className="p-8">
+            <h2 className="text-2xl font-bold text-purple-900 mb-8">Car Specifications</h2>
+            
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-8 mb-8">
+              <div className="flex items-start gap-3">
+                <svg className="w-10 h-10 text-purple-300 mt-1" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                </svg>
+                <div>
+                  <p className="text-xs text-gray-500 mb-1">Mileage (ARAI)</p>
+                  <p className="text-lg font-bold text-gray-900">15 kmpl</p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <svg className="w-10 h-10 text-purple-300 mt-1" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                </svg>
+                <div>
+                  <p className="text-xs text-gray-500 mb-1">Ground clearance</p>
+                  <p className="text-lg font-bold text-gray-900">226 mm</p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <svg className="w-10 h-10 text-purple-300 mt-1" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                </svg>
+                <div>
+                  <p className="text-xs text-gray-500 mb-1">Seating capacity</p>
+                  <p className="text-lg font-bold text-gray-900">4 units</p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <svg className="w-10 h-10 text-purple-300 mt-1" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                </svg>
+                <div>
+                  <p className="text-xs text-gray-500 mb-1">Fuel tank capacity</p>
+                  <p className="text-lg font-bold text-gray-900">57 litres</p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <svg className="w-10 h-10 text-purple-300 mt-1" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                </svg>
+                <div>
+                  <p className="text-xs text-gray-500 mb-1">Displacement</p>
+                  <p className="text-lg font-bold text-gray-900">2184 cc</p>
+                </div>
+              </div>
+            </div>
+
+            <button className="border-2 border-primary text-primary py-3 px-8 rounded-lg font-semibold hover:bg-purple-50 transition-colors mb-12">
+              VIEW ALL SPECIFICATIONS
+            </button>
+
+            <h3 className="text-2xl font-bold text-purple-900 mb-8">Top Features of this car</h3>
+            
+            <div className="grid md:grid-cols-3 gap-8">
+              {/* Comfort & Convenience */}
+              <div>
+                <h4 className="font-bold text-gray-600 mb-6 text-sm uppercase tracking-wide">
+                  Comfort & Convenience
+                </h4>
+                <ul className="space-y-4">
+                  <li className="flex items-start gap-3">
+                    <svg className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                    <span className="text-sm text-gray-800">Cruise control</span>
+                    <svg className="w-4 h-4 text-purple-600 ml-auto" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z"/>
+                      <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z"/>
+                    </svg>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <svg className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                    <span className="text-sm text-gray-800">Steering mounted controls</span>
+                    <svg className="w-4 h-4 text-purple-600 ml-auto" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+                    </svg>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <svg className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                    <span className="text-sm text-gray-800">Driver height adjustable seat</span>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Safety */}
+              <div>
+                <h4 className="font-bold text-gray-600 mb-6 text-sm uppercase tracking-wide">
+                  Safety
+                </h4>
+                <ul className="space-y-4">
+                  <li className="flex items-start gap-3">
+                    <svg className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                    <span className="text-sm text-gray-800">Airbags</span>
+                    <svg className="w-4 h-4 text-purple-600 ml-auto" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z"/>
+                      <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z"/>
+                    </svg>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Entertainment & Communication */}
+              <div>
+                <h4 className="font-bold text-gray-600 mb-6 text-sm uppercase tracking-wide">
+                  Entertainment & Communication
+                </h4>
+                <ul className="space-y-4">
+                  <li className="flex items-start gap-3">
+                    <svg className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                    <span className="text-sm text-gray-800">Integrated (in-dash) music system</span>
+                    <svg className="w-4 h-4 text-purple-600 ml-auto" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z"/>
+                      <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z"/>
+                    </svg>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <svg className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                    <span className="text-sm text-gray-800">Touch screen infotainment system</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <svg className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                    <span className="text-sm text-gray-800">Apple car play / android auto</span>
+                    <svg className="w-4 h-4 text-purple-600 ml-auto" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+                    </svg>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Why Choose Spinny Section */}
+        <div className="mt-12 bg-white rounded-lg shadow-lg p-6 md:p-8">
+          <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6">
+            Why Choose Spinny?
+          </h2>
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="text-center">
+              <div className="w-16 h-16 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-3xl">✓</span>
+              </div>
+              <h3 className="font-bold text-lg mb-2">Quality Assured</h3>
+              <p className="text-gray-600">
+                200-point quality check on every car
+              </p>
+            </div>
+            <div className="text-center">
+              <div className="w-16 h-16 bg-secondary bg-opacity-10 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-3xl">🛡️</span>
+              </div>
+              <h3 className="font-bold text-lg mb-2">Warranty Included</h3>
+              <p className="text-gray-600">
+                1-year comprehensive warranty on all cars
+              </p>
+            </div>
+            <div className="text-center">
+              <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-3xl">🔄</span>
+              </div>
+              <h3 className="font-bold text-lg mb-2">5-Day Return Policy</h3>
+              <p className="text-gray-600">
+                Don't like it? Return within 5 days
+              </p>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      {/* Footer */}
+      <footer className="bg-gray-800 text-white mt-12 py-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid md:grid-cols-4 gap-8">
+            <div>
+              <h3 className="text-xl font-bold mb-4">Spinny</h3>
+              <p className="text-gray-400">
+                India's most trusted platform to buy certified used cars
+              </p>
+            </div>
+            <div>
+              <h4 className="font-bold mb-4">Quick Links</h4>
+              <ul className="space-y-2 text-gray-400">
+                <li>
+                  <a href="#" className="hover:text-white">About Us</a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-white">Contact</a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-white">Careers</a>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-bold mb-4">Services</h4>
+              <ul className="space-y-2 text-gray-400">
+                <li>
+                  <a href="#" className="hover:text-white">Buy Cars</a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-white">Sell Cars</a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-white">Finance</a>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-bold mb-4">Contact</h4>
+              <ul className="space-y-2 text-gray-400">
+                <li>Email: support@spinny.com</li>
+                <li>Phone: 1800-123-4567</li>
+              </ul>
+            </div>
+          </div>
+          <div className="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+            <p>&copy; 2025 Spinny. All rights reserved.</p>
+          </div>
+        </div>
+      </footer>
+
+      {/* 360 View Modal */}
+      <View360Modal
+        isOpen={is360Open}
+        onClose={() => setIs360Open(false)}
+        images360={images360Exterior}
+      />
+
+      {/* EMI Calculator Modal */}
+      {isEMICalculatorOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-2xl max-w-md w-full relative">
+            <button 
+              onClick={() => setIsEMICalculatorOpen(false)}
+              className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+
+            <div className="p-6">
+              <h2 className="text-xl font-bold text-gray-900 mb-6">Check Eligibility</h2>
+              
+              <EMICalculator />
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
